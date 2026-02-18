@@ -24,9 +24,6 @@ rule lapa:
         disable_internal_priming_filter = "--disable_internal_priming_filter" if config["lapa_disable_internal_priming_filter"] else "",
         sample_subdir = subpath(output.clusters, parent=True)
 
-    conda:
-        "../envs/lapa_fork.yaml"
-
     container:
         "docker://ghcr.io/sambryce-smith/lapa:0.0.7"
 
