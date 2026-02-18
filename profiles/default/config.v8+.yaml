@@ -1,0 +1,12 @@
+default-resources:
+    clusters: 'wice'
+    slurm_account: 'lp_big_wice_cpu'
+    slurm_partition: 'dedicated_big_bigmem'
+    mem_mb: 6000
+    threads: 1
+    runtime: 30
+
+set-resources:
+    lapa:
+      mem_mb: 14500
+      runtime: 120

@@ -5,10 +5,10 @@ rule lapa:
         gtf = config["gtf"],
         chrom_sizes = config["chrom_sizes"]
     output:
-        os.path.join(config["main_output_dir"], "lapa", "polyA_clusters.bed")
+        clusters=os.path.join(config["main_output_dir"], "lapa", "polyA_clusters.bed")
 
     params:
-        output_dir = os.path.join(config["main_output_dir"], "lapa"),
+        output_dir = subpath(output.clusters, parent=True),
         counting_method = config["lapa_counting_method"],
         min_tail_len = config["lapa_min_tail_len"],
         min_percent_a = config["lapa_min_percent_a"],
@@ -22,7 +22,7 @@ rule lapa:
         replication_num_sample = config["lapa_replication_num_sample"],
         non_replicates_read_threshold = config["lapa_non_replicates_read_threshold"],
         disable_internal_priming_filter = "--disable_internal_priming_filter" if config["lapa_disable_internal_priming_filter"] else "",
-        sample_subdir = os.path.join(config["main_output_dir"], "lapa", "sample")
+        sample_subdir = subpath(output.clusters, parent=True)
 
     conda:
         "../envs/lapa_fork.yaml"
@@ -40,7 +40,7 @@ rule lapa:
     shell:
         # LAPA subdirectories cannot exist before running LAPA
         """
-        [ -d {params.sample_subdir} ] && rm -r {params.output_dir}/*
+        [ -d {params.sample_subdir}/sample ] && rm -r {params.output_dir}/sample/*
         lapa \
         --alignment {input.samples_csv} \
         --fasta {input.fasta} \

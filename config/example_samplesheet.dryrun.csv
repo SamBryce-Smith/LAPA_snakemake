@@ -1,0 +1,3 @@
+sample,dataset,path
+sample1,control,data/dryrun-empty-data/sample1.bam
+sampel2,treatment,data/dryrun-empty-data/sample2.bam
