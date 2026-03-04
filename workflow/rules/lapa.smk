@@ -5,7 +5,8 @@ rule lapa:
         gtf = config["gtf"],
         chrom_sizes = config["chrom_sizes"]
     output:
-        clusters=os.path.join(config["main_output_dir"], "lapa", "polyA_clusters.bed")
+        clusters=os.path.join(config["main_output_dir"], "lapa", "polyA_clusters.bed"),
+        outdir=directory(os.path.join(config["main_output_dir"], "lapa")) # save everything in directory to ensure kept if do cluster submission
 
     params:
         output_dir = subpath(output.clusters, parent=True),
